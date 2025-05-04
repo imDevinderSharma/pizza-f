@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-// API URL that works in both development and production
-const API_URL = process.env.NODE_ENV === 'production' 
-  ? '/api' // In production (Vercel), use relative URL
-  : 'http://localhost:3000/api'; // In development
+// API base URL configuration
+const API_URL = 'https://pizzahost-backend.vercel.app/api';
 
 console.log('API URL configured as:', API_URL);
 
