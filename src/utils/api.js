@@ -41,6 +41,13 @@ api.interceptors.response.use(
 export const getMenuItems = async () => {
   try {
     const response = await api.get('/menu');
+    // Enhanced debugging for response structure
+    console.log('Menu items response structure:', {
+      hasData: !!response.data,
+      dataIsArray: Array.isArray(response.data),
+      hasNestedData: response.data && !!response.data.data,
+      nestedDataIsArray: response.data && Array.isArray(response.data.data)
+    });
     return response;
   } catch (error) {
     console.error('Error fetching menu items:', error);

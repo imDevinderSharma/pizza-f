@@ -35,7 +35,15 @@ const MenuPage = () => {
         
         // In production, fetch from API
         const response = await getMenuItems();
-        setItems(response.data);
+        // Extract the menu items from the response data structure
+        if (response.data && Array.isArray(response.data.data)) {
+          setItems(response.data.data);
+        } else if (response.data && Array.isArray(response.data)) {
+          setItems(response.data);
+        } else {
+          console.error('Unexpected API response format:', response.data);
+          setError('Unexpected data format received from server');
+        }
         setLoading(false);
       } catch (error) {
         console.error('Error fetching menu items:', error);
