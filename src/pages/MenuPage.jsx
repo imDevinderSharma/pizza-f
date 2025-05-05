@@ -18,8 +18,16 @@ const MenuPage = () => {
   const menuContainerRef = useRef(null);
   const containerRef = useRef(null);
 
-  // Fetch menu items when component mounts
+  // Load menu items when component mounts
   useEffect(() => {
+    // Use the local menuData.js file directly
+    setTimeout(() => {
+      setItems(menuItems);
+      setLoading(false);
+    }, 300); // Simulate loading for UX
+
+    // Comment out the API fetch code
+    /* 
     const fetchMenuItems = async () => {
       try {
         setLoading(true);
@@ -53,6 +61,7 @@ const MenuPage = () => {
     };
 
     fetchMenuItems();
+    */
   }, []);
 
   // Horizontal scrolling to active category button
