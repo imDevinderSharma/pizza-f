@@ -24,12 +24,14 @@ const CheckoutPage = () => {
     state: savedAddress.state || '',
     zipCode: savedAddress.zipCode || '',
     phone: savedAddress.phone || '',
+    confirmPhone: savedAddress.phone || '',
     email: savedAddress.email || '',
     confirmEmail: savedAddress.email || '',
     specialInstructions: ''
   });
   
   const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
   
   // Animation variants
   const containerVariants = {
@@ -50,7 +52,18 @@ const CheckoutPage = () => {
   
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    
+    // For phone fields, only allow digits and limit to 10 characters
+    if (name === 'phone' || name === 'confirmPhone') {
+      const digitsOnly = value.replace(/\D/g, '');
+      const truncated = digitsOnly.slice(0, 10);
+      setFormData({ ...formData, [name]: truncated });
+      
+      // Clear phone error when typing in phone fields
+      setPhoneError('');
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
     
     // Clear email error when typing in email fields
     if (name === 'email' || name === 'confirmEmail') {
@@ -76,6 +89,10 @@ const CheckoutPage = () => {
         price: item.price
       }));
       
+      // Calculate final amount with delivery fee
+      const deliveryFee = totalAmount >= 300 ? 0 : 40;
+      const finalAmount = totalAmount + deliveryFee;
+      
       // For UPI payments, update the payment status to 'Completed'
       const orderData = {
         items: orderItems,
@@ -90,12 +107,14 @@ const CheckoutPage = () => {
         paymentMethod: 'UPI',
         paymentStatus: 'Completed', // Explicitly mark as completed
         specialInstructions: formData.specialInstructions,
-        totalAmount: totalAmount
+        deliveryFee: deliveryFee,
+        subtotal: totalAmount,
+        totalAmount: finalAmount
       };
       
       console.log('UPI order data prepared:', JSON.stringify(orderData, null, 2));
       console.log('UPI order items details:', JSON.stringify(orderItems, null, 2));
-      console.log('UPI total amount being sent:', totalAmount);
+      console.log('UPI total amount being sent:', finalAmount);
       
       // Only use mock response when specifically in development mode AND mock mode is enabled
       if (import.meta.env.DEV && import.meta.env.VITE_USE_MOCK_API === 'true') {
@@ -105,7 +124,7 @@ const CheckoutPage = () => {
           const mockOrder = {
             _id: 'order-' + Date.now(),
             ...orderData,
-            totalAmount: totalAmount,
+            totalAmount: finalAmount,
             createdAt: new Date().toISOString(),
             orderStatus: 'Placed',
             paymentStatus: 'Completed'
@@ -179,6 +198,18 @@ const CheckoutPage = () => {
       return;
     }
     
+    // Phone number validation
+    if (formData.phone.length !== 10) {
+      setPhoneError('Phone number must be 10 digits');
+      return;
+    }
+    
+    // Validate phone fields
+    if (formData.phone !== formData.confirmPhone) {
+      setPhoneError('Phone numbers do not match');
+      return;
+    }
+    
     // Save delivery address
     saveDeliveryAddress({
       street: formData.street,
@@ -227,6 +258,10 @@ const CheckoutPage = () => {
         price: item.price
       }));
       
+      // Calculate final amount with delivery fee
+      const deliveryFee = totalAmount >= 300 ? 0 : 40;
+      const finalAmount = totalAmount + deliveryFee;
+      
       const orderData = {
         items: orderItems,
         deliveryAddress: {
@@ -239,12 +274,14 @@ const CheckoutPage = () => {
         },
         paymentMethod,
         specialInstructions: formData.specialInstructions,
-        totalAmount: totalAmount
+        deliveryFee: deliveryFee,
+        subtotal: totalAmount,
+        totalAmount: finalAmount
       };
       
       console.log('Order data prepared:', JSON.stringify(orderData, null, 2));
       console.log('Order items details:', JSON.stringify(orderItems, null, 2));
-      console.log('Total amount being sent:', totalAmount);
+      console.log('Total amount being sent:', finalAmount);
       
       // Only use mock response when specifically in development mode AND mock mode is enabled
       if (import.meta.env.DEV && import.meta.env.VITE_USE_MOCK_API === 'true') {
@@ -254,7 +291,7 @@ const CheckoutPage = () => {
           const mockOrder = {
             _id: 'order-' + Date.now(),
             ...orderData,
-            totalAmount: totalAmount,
+            totalAmount: finalAmount,
             createdAt: new Date().toISOString(),
             orderStatus: 'Placed',
             paymentStatus: paymentMethod === 'COD' ? 'Pending' : 'Completed'
@@ -350,7 +387,7 @@ const CheckoutPage = () => {
             <div className="payment-info">
               <div className="payment-amount">
                 <span>Amount:</span>
-                <span>₹{totalAmount.toFixed(2)}</span>
+                <span>₹{(totalAmount >= 300 ? totalAmount : totalAmount + 40).toFixed(2)}</span>
               </div>
               <div className="payment-id">
                 <span>Payment ID:</span>
@@ -449,7 +486,7 @@ const CheckoutPage = () => {
               </div>
               
               <div className="form-group">
-                <label htmlFor="phone">Phone Number</label>
+                <label htmlFor="phone">Phone Number (10 digits)</label>
                 <input
                   type="tel"
                   id="phone"
@@ -457,8 +494,26 @@ const CheckoutPage = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                  placeholder="Enter your phone number"
+                  placeholder="Enter your 10-digit phone number"
+                  maxLength="10"
+                  pattern="[0-9]{10}"
                 />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="confirmPhone">Confirm Phone Number</label>
+                <input
+                  type="tel"
+                  id="confirmPhone"
+                  name="confirmPhone"
+                  value={formData.confirmPhone}
+                  onChange={handleChange}
+                  required
+                  placeholder="Confirm your phone number"
+                  maxLength="10"
+                  pattern="[0-9]{10}"
+                />
+                {phoneError && <div className="error-message">{phoneError}</div>}
               </div>
               
               <div className="form-group">
@@ -601,17 +656,12 @@ const CheckoutPage = () => {
               
               <div className="summary-row">
                 <span>Delivery Fee:</span>
-                <span>Free</span>
-              </div>
-              
-              <div className="summary-row">
-                <span>Tax:</span>
-                <span>₹{(totalAmount * 0.10).toFixed(2)}</span>
+                <span>{totalAmount >= 300 ? 'Free' : '₹40.00'}</span>
               </div>
               
               <div className="summary-row total">
                 <span>Total:</span>
-                <span>₹{(totalAmount + totalAmount * 0.10).toFixed(2)}</span>
+                <span>₹{(totalAmount >= 300 ? totalAmount : totalAmount + 40).toFixed(2)}</span>
               </div>
               
               <div className="delivery-estimate">

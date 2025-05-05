@@ -73,26 +73,12 @@ const HomePage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.6 }}
             >
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="button-wrapper"
-              >
-                <Link to="/menu" className="btn btn-main pulse-strong glow-effect">
-                  <span className="btn-text">Order Now</span>
-                  <span className="btn-icon">🍕</span>
-                </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="button-wrapper"
-              >
-                <Link to="/menu" className="btn btn-outline shine-effect">
-                  <span className="btn-text">View Menu</span>
-                  <span className="btn-icon">👀</span>
-                </Link>
-              </motion.div>
+              <Link to="/menu" className="btn btn-main pulse">
+                Order Now
+              </Link>
+              <Link to="/menu" className="btn btn-outline">
+                View Menu
+              </Link>
             </motion.div>
           </motion.div>
           
@@ -230,16 +216,7 @@ const HomePage = () => {
           <div className="cta-content">
             <h2>Ready to Order Your Favorite Pizza?</h2>
             <p>Hungry? We're just a few clicks away. Order now and enjoy our delicious pizzas!</p>
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="cta-button-wrapper"
-            >
-              <Link to="/menu" className="btn btn-main btn-lg pulse-strong glow-effect">
-                <span className="btn-text">Order Now</span>
-                <span className="btn-icon">🔥</span>
-              </Link>
-            </motion.div>
+            <Link to="/menu" className="btn btn-main btn-lg pulse">Order Now</Link>
           </div>
         </div>
       </section>

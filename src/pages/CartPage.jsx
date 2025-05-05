@@ -15,6 +15,10 @@ const CartPage = () => {
     }
   };
   
+  // Calculate delivery fee based on total amount
+  const deliveryFee = totalAmount >= 300 ? 0 : 40;
+  const finalAmount = totalAmount + deliveryFee;
+  
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -108,14 +112,38 @@ const CartPage = () => {
               </div>
               
               <div className="summary-row">
-                <span>Delivery:</span>
-                <span>Free</span>
+                <span>Delivery Fee:</span>
+                <span>{totalAmount >= 300 ? 'Free' : '₹40.00'}</span>
               </div>
               
               <div className="summary-row total">
                 <span>Total:</span>
-                <span>₹{totalAmount.toFixed(2)}</span>
+                <span>₹{finalAmount.toFixed(2)}</span>
               </div>
+              
+              {totalAmount > 0 && totalAmount < 300 && (
+                <motion.div 
+                  className="delivery-notification"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                >
+                  <div className="notification-icon">🚚</div>
+                  <p>Add ₹{(300 - totalAmount).toFixed(2)} more to get <span className="highlight">FREE delivery!</span></p>
+                </motion.div>
+              )}
+              
+              {totalAmount >= 300 && (
+                <motion.div 
+                  className="delivery-notification success"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                >
+                  <div className="notification-icon">✨</div>
+                  <p>Congratulations! You've qualified for <span className="highlight">FREE delivery!</span></p>
+                </motion.div>
+              )}
               
               <div className="promo-code">
                 <label htmlFor="promo">Promo Code</label>

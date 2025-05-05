@@ -145,6 +145,52 @@
   border-top: 2px dashed rgba(var(--primary-color-rgb), 0.3);
 }
 
+.delivery-notification {
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  background: linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.1), rgba(var(--accent-color-rgb), 0.1));
+  border: 1px dashed rgba(var(--primary-color-rgb), 0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.delivery-notification.success {
+  background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.1));
+  border: 1px dashed rgba(39, 174, 96, 0.3);
+}
+
+.notification-icon {
+  font-size: 1.4rem;
+  animation: bounce 2s infinite alternate;
+}
+
+.delivery-notification p {
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.delivery-notification .highlight {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.delivery-notification.success .highlight {
+  color: #27ae60;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
 .promo-code {
   margin: 25px 0;
 }

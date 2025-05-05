@@ -112,6 +112,14 @@ const OrderConfirmationPage = () => {
               <span>{orderData._id}</span>
             </div>
             <div className="detail-row">
+              <span>Subtotal:</span>
+              <span>₹{orderData.subtotal?.toFixed(2) || (orderData.totalAmount - (orderData.deliveryFee || 0)).toFixed(2)}</span>
+            </div>
+            <div className="detail-row">
+              <span>Delivery Fee:</span>
+              <span>{orderData.deliveryFee === 0 ? 'Free' : `₹${orderData.deliveryFee?.toFixed(2) || '40.00'}`}</span>
+            </div>
+            <div className="detail-row">
               <span>Total Amount:</span>
               <span>₹{orderData.totalAmount.toFixed(2)}</span>
             </div>
