@@ -17,9 +17,9 @@ const PizzaQualities = () => {
     },
     {
       id: 3,
-      title: 'Wood-Fired Oven',
-      description: 'Each pizza is baked to perfection in our authentic wood-fired brick oven.',
-      icon: '🔥',
+      title: 'Electric Oven',
+      description: 'Each pizza is baked to perfection in our modern electric oven for consistent quality.',
+      icon: '⚡',
     },
   ];
 

@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { placeholderImages } from '../assets/placeholder';
 import PizzaQualities from '../components/PizzaQualities';
 import './HomePage.css';
@@ -15,6 +15,61 @@ const HomePage = () => {
   const heroScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  
+  // State to store random pizzas
+  const [randomPizzas, setRandomPizzas] = useState([]);
+  
+  // Effect to randomly select pizzas from the menu
+  useEffect(() => {
+    const allPizzas = [
+      {
+        id: 1,
+        name: 'Margherita Deluxe',
+        image: placeholderImages.margherita,
+        price: 249,
+        ingredients: ['Fresh Mozzarella', 'Basil', 'Cherry Tomatoes', 'Olive Oil']
+      },
+      {
+        id: 2,
+        name: 'Pepperoni Supreme',
+        image: placeholderImages.pepperoni,
+        price: 299,
+        ingredients: ['Pepperoni', 'Mozzarella', 'Tomato Sauce', 'Oregano']
+      },
+      {
+        id: 3,
+        name: 'Veggie Paradise',
+        image: placeholderImages.veggieSupreme,
+        price: 279,
+        ingredients: ['Bell Peppers', 'Mushrooms', 'Olives', 'Onions', 'Cherry Tomatoes']
+      },
+      {
+        id: 4,
+        name: 'Paneer Tikka',
+        image: placeholderImages.classic,
+        price: 329,
+        ingredients: ['Paneer Tikka', 'Onion', 'Capsicum', 'Spicy Sauce']
+      },
+      {
+        id: 5,
+        name: 'Chicken Delight',
+        image: placeholderImages.gourmet,
+        price: 349,
+        ingredients: ['Chicken', 'Onions', 'Bell Peppers', 'Sweet Corn']
+      },
+      {
+        id: 6,
+        name: 'Spicy Indian',
+        image: placeholderImages.spicy,
+        price: 299,
+        ingredients: ['Jalapeños', 'Spicy Sauce', 'Onions', 'Green Chillies']
+      }
+    ];
+    
+    // Shuffle the array and pick first 3
+    const shuffled = [...allPizzas].sort(() => 0.5 - Math.random());
+    setRandomPizzas(shuffled.slice(0, 3));
+  }, []);
   
   return (
     <div className="home-page" ref={ref}>
@@ -44,7 +99,7 @@ const HomePage = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              #1 Pizza in Town
+              #1 Pizza in Meerut
             </motion.div>
             
             <motion.h1 
@@ -53,8 +108,8 @@ const HomePage = () => {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="hero-title"
             >
-              Artisan Pizza 
-              <span className="highlight">Crafted For You</span>
+              Welcome to 
+              <span className="highlight">PizzaHost</span>
             </motion.h1>
             
             <motion.p
@@ -64,7 +119,7 @@ const HomePage = () => {
               className="hero-text"
             >
               Experience the perfect blend of crispy crust, fresh ingredients,
-              and mouthwatering flavors. Made with love, delivered to your doorstep.
+              and mouthwatering flavors. Made with love, delivered to your doorstep in Meerut.
             </motion.p>
             
             <motion.div
@@ -73,10 +128,10 @@ const HomePage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.6 }}
             >
-              <Link to="/menu" className="btn btn-main pulse">
+              <Link to="/menu" className="btn btn-main btn-lg pulse-strong glow-effect">
                 Order Now
               </Link>
-              <Link to="/menu" className="btn btn-outline">
+              <Link to="/menu" className="btn btn-outline btn-lg hover-scale">
                 View Menu
               </Link>
             </motion.div>
@@ -126,30 +181,6 @@ const HomePage = () => {
       
       <PizzaQualities />
       
-      <section className="categories-section">
-        <div className="container">
-          <motion.h2 
-            className="section-title text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6 }}
-          >
-            Pizza Categories
-          </motion.h2>
-          
-          <div className="categories-grid">
-            {categories.map((category, index) => (
-              <CategoryCard 
-                key={category.id}
-                {...category}
-                index={index}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-      
       <section className="featured-section">
         <div className="container">
           <div className="section-header">
@@ -176,7 +207,7 @@ const HomePage = () => {
           </div>
           
           <div className="featured-grid">
-            {featuredPizzas.map((pizza, index) => (
+            {randomPizzas.map((pizza, index) => (
               <FeaturedPizzaCard 
                 key={pizza.id}
                 {...pizza}
@@ -215,40 +246,12 @@ const HomePage = () => {
         <div className="container">
           <div className="cta-content">
             <h2>Ready to Order Your Favorite Pizza?</h2>
-            <p>Hungry? We're just a few clicks away. Order now and enjoy our delicious pizzas!</p>
-            <Link to="/menu" className="btn btn-main btn-lg pulse">Order Now</Link>
+            <p>Hungry? We're just a few clicks away. Order now and enjoy our delicious pizzas in Meerut!</p>
+            <Link to="/menu" className="btn btn-main btn-lg pulse-strong glow-effect">Order Now</Link>
           </div>
         </div>
       </section>
     </div>
-  );
-};
-
-// Category Card Component
-const CategoryCard = ({ id, name, image, description, index }) => {
-  return (
-    <motion.div 
-      className="category-card glass"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      whileHover={{ y: -10, boxShadow: "var(--box-shadow-lg)" }}
-    >
-      <div className="category-image-container">
-        <div 
-          className="category-image" 
-          style={{ backgroundImage: `url(${image})` }}
-        ></div>
-      </div>
-      <div className="category-content">
-        <h3>{name}</h3>
-        <p>{description}</p>
-        <Link to={`/menu?category=${id}`} className="btn btn-sm">
-          Explore
-        </Link>
-      </div>
-    </motion.div>
   );
 };
 
@@ -270,7 +273,7 @@ const FeaturedPizzaCard = ({ id, name, image, price, ingredients, index }) => {
         className="pizza-image" 
         style={{ backgroundImage: `url(${image})` }}
       >
-        <div className="pizza-badge">₹{price.toFixed(2)}</div>
+        <div className="pizza-badge">₹{price}</div>
       </div>
       <div className="pizza-content">
         <h3>{name}</h3>
@@ -311,76 +314,25 @@ const TestimonialCard = ({ name, avatar, rating, comment, index }) => {
   );
 };
 
-// Sample Data
-const categories = [
-  {
-    id: 'classic',
-    name: 'Classic',
-    image: placeholderImages.classic,
-    description: 'Timeless recipes loved by generations'
-  },
-  {
-    id: 'gourmet',
-    name: 'Gourmet',
-    image: placeholderImages.gourmet,
-    description: 'Premium ingredients for discerning tastes'
-  },
-  {
-    id: 'veggie',
-    name: 'Vegetarian',
-    image: placeholderImages.veggie,
-    description: 'Fresh vegetables and plant-based options'
-  },
-  {
-    id: 'spicy',
-    name: 'Spicy',
-    image: placeholderImages.spicy,
-    description: 'Hot and fiery flavors for spice lovers'
-  }
-];
-
-const featuredPizzas = [
-  {
-    id: 1,
-    name: 'Margherita Deluxe',
-    image: placeholderImages.margherita,
-    price: 14.99,
-    ingredients: ['Fresh Mozzarella', 'Basil', 'Cherry Tomatoes', 'Olive Oil']
-  },
-  {
-    id: 2,
-    name: 'Pepperoni Supreme',
-    image: placeholderImages.pepperoni,
-    price: 16.99,
-    ingredients: ['Pepperoni', 'Mozzarella', 'Tomato Sauce', 'Oregano']
-  },
-  {
-    id: 3,
-    name: 'Veggie Paradise',
-    image: placeholderImages.veggieSupreme,
-    price: 15.99,
-    ingredients: ['Bell Peppers', 'Mushrooms', 'Olives', 'Onions', 'Cherry Tomatoes']
-  }
-];
-
+// Sample Data - Indian testimonials with Indian English
 const testimonials = [
   {
-    name: 'Sarah Johnson',
-    avatar: placeholderImages.avatar1,
+    name: 'Rahul Sharma',
+    avatar: 'https://randomuser.me/api/portraits/men/44.jpg',
     rating: 5,
-    comment: "The best pizza I've ever had! Quick delivery and always hot. Their Margherita is incredible."
+    comment: "Simply the best pizza in entire Meerut! PizzaHost's paneer tikka pizza is mindblowing. Delivery was also very fast, within 30 minutes only!"
   },
   {
-    name: 'Michael Chen',
-    avatar: placeholderImages.avatar2,
+    name: 'Priya Patel',
+    avatar: 'https://randomuser.me/api/portraits/women/33.jpg',
     rating: 5,
-    comment: "We order every Friday for family night. The kids love the pepperoni and we love the quality ingredients."
+    comment: "My family is ordering from PizzaHost every weekend. Kids are loving the cheese burst pizza. Very good quality and taste, must try!"
   },
   {
-    name: 'Emma Rodriguez',
-    avatar: placeholderImages.avatar3,
+    name: 'Amit Kumar',
+    avatar: 'https://randomuser.me/api/portraits/men/22.jpg',
     rating: 4,
-    comment: "Great selection of vegetarian options. The veggie supreme is my go-to whenever I order."
+    comment: "Veg options are awesome! I am regular customer since last 6 months. Sometimes delivery takes time but taste makes up for it. 100% recommended."
   }
 ];
 

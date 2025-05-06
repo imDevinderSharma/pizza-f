@@ -112,7 +112,7 @@ const Footer = () => {
             <ul>
               <li>
                 <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
-                  (123) 456-7890
+                  <a href="tel:+919560776095">+91 9560776095</a>
                 </motion.div>
               </li>
               <li>
@@ -122,7 +122,7 @@ const Footer = () => {
               </li>
               <li>
                 <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
-                  123 Pizza Street, Food City
+                  Shop G-15, Inderlok Complex, Krishna Nagar, Near NB Colony, Pallavpuram, Meerut
                 </motion.div>
               </li>
             </ul>
