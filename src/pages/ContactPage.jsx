@@ -312,7 +312,7 @@ const ContactPage = () => {
               transition={{ duration: 0.8 }}
             >
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3499.6506139749647!2d77.70246007624711!3d28.695915175512186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390c79ef5d7f74b9%3A0xa3eb36d5d6ceaaf5!2sInderlok%20Complex%2C%20Krishna%20Nagar%2C%20Pallavpuram%2C%20Meerut%2C%20Uttar%20Pradesh%20250005!5e0!3m2!1sen!2sin!4v1704654890558!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d77.70632125276563!3d29.03716096856749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDAyJzEzLjgiTiA3N8KwNDInMjIuOCJF!5e0!3m2!1sen!2sin!4v1717348001144!5m2!1sen!2sin"
                 width="100%" 
                 height="450" 
                 style={{ border: 0 }} 
@@ -330,7 +330,7 @@ const ContactPage = () => {
               transition={{ delay: 0.4, duration: 0.6 }}
             >
               <motion.a 
-                href="https://maps.google.com/?q=Shop+G-15,+Inderlok+Complex,+Krishna+Nagar,+Pallavpuram,+Meerut" 
+                href="https://maps.google.com/?q=29.03716096856749,77.70632125276563" 
                 className="directions-button"
                 target="_blank"
                 rel="noopener noreferrer"
