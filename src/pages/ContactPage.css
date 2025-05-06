@@ -34,6 +34,13 @@
   align-items: start;
 }
 
+.contact-grid-full {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .contact-info h2,
 .contact-form-container h2,
 .map-section h2,
@@ -41,6 +48,7 @@
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
   color: var(--primary-color);
+  text-align: center;
 }
 
 .info-text {
@@ -48,6 +56,10 @@
   font-size: 1.1rem;
   line-height: 1.7;
   color: var(--text-color);
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .contact-method {
@@ -66,10 +78,51 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
+.whatsapp-highlight {
+  background: linear-gradient(to right, rgba(37, 211, 102, 0.1), rgba(37, 211, 102, 0.05));
+  border: 2px solid rgba(37, 211, 102, 0.3);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.15);
+}
+
+.whatsapp-highlight:hover {
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.25);
+}
+
+.whatsapp-link {
+  color: #25D366 !important;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.whatsapp-button {
+  background-color: #25D366;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  margin-top: 15px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  transition: all 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  background-color: #22c15e;
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+}
+
 .method-icon {
   font-size: 2rem;
   margin-right: 1.5rem;
   margin-top: 0.2rem;
+}
+
+.whatsapp-highlight .method-icon {
+  color: #25D366;
 }
 
 .method-details {
@@ -80,6 +133,10 @@
   font-size: 1.4rem;
   margin-bottom: 0.8rem;
   color: var(--secondary-color);
+}
+
+.whatsapp-highlight .method-details h3 {
+  color: #25D366;
 }
 
 .method-details p {
@@ -248,15 +305,10 @@
   background-color: var(--light-bg);
 }
 
-.map-section h2 {
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
 .map-container {
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* FAQ Section */
@@ -265,38 +317,39 @@
 }
 
 .faq-section h2 {
-  text-align: center;
   margin-bottom: 3rem;
 }
 
 .faq-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 30px;
 }
 
 .faq-item {
   background-color: #fff;
   padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
 .faq-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
 }
 
 .faq-item h3 {
-  font-size: 1.4rem;
+  color: var(--secondary-color);
+  font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: var(--primary-color);
+  position: relative;
 }
 
 .faq-item p {
   color: var(--text-color);
-  line-height: 1.7;
+  line-height: 1.6;
+  font-size: 1rem;
 }
 
 /* Responsive styles */
@@ -307,7 +360,7 @@
   }
   
   .contact-form-container {
-    order: 0;
+    order: 2;
   }
   
   .contact-info {
@@ -315,7 +368,7 @@
   }
   
   .faq-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -330,13 +383,13 @@
   
   .form-row {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 15px;
   }
   
   .faq-grid {
-    grid-template-columns: 1fr;
+    gap: 20px;
   }
-  
+
   .contact-method {
     flex-direction: column;
     align-items: center;
@@ -346,6 +399,7 @@
   .method-icon {
     margin-right: 0;
     margin-bottom: 1rem;
+    font-size: 2.5rem;
   }
 }
 
