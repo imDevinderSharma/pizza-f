@@ -98,6 +98,16 @@ const Footer = () => {
               </li>
               <li>
                 <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
+                  <Link to="/about">About Us</Link>
+                </motion.div>
+              </li>
+              <li>
+                <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
+                  <Link to="/contact">Contact Us</Link>
+                </motion.div>
+              </li>
+              <li>
+                <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
                   <Link to="/cart">Cart</Link>
                 </motion.div>
               </li>
@@ -136,17 +146,17 @@ const Footer = () => {
             <ul>
               <li>
                 <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
-                  <Link to="#">Terms of Service</Link>
+                  <Link to="/terms-of-service">Terms of Service</Link>
                 </motion.div>
               </li>
               <li>
                 <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
-                  <Link to="#">Privacy Policy</Link>
+                  <Link to="/privacy-policy">Privacy Policy</Link>
                 </motion.div>
               </li>
               <li>
                 <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
-                  <Link to="#">Refund Policy</Link>
+                  <Link to="/refund-policy">Refund Policy</Link>
                 </motion.div>
               </li>
             </ul>

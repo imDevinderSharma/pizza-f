@@ -63,6 +63,8 @@ const Navbar = () => {
           >
             <NavLink to="/" isActive={location.pathname === '/'}>Home</NavLink>
             <NavLink to="/menu" isActive={location.pathname === '/menu'}>Menu</NavLink>
+            <NavLink to="/about" isActive={location.pathname === '/about'}>About</NavLink>
+            <NavLink to="/contact" isActive={location.pathname === '/contact'}>Contact</NavLink>
             <NavLink to="/cart" isActive={location.pathname === '/cart'}>
               Cart 
               <AnimatePresence>
@@ -131,6 +133,8 @@ const Navbar = () => {
           >
             <NavLink to="/" isActive={location.pathname === '/'}>Home</NavLink>
             <NavLink to="/menu" isActive={location.pathname === '/menu'}>Menu</NavLink>
+            <NavLink to="/about" isActive={location.pathname === '/about'}>About</NavLink>
+            <NavLink to="/contact" isActive={location.pathname === '/contact'}>Contact</NavLink>
             <NavLink to="/cart" isActive={location.pathname === '/cart'}>
               Cart 
               {cartItemCount > 0 && <span className="cart-badge mobile">{cartItemCount}</span>}
